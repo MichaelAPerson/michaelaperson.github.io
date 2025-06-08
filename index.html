@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Michael's Stream & Videos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+    }
+    a {
+      color: #1da1f2;
+      text-decoration: none;
+      font-size: 1.2rem;
+      margin: 0 1rem;
+    }
+    iframe {
+      border: none;
+      margin-top: 1rem;
+    }
+    #twitch-status {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to My Page!</h1>
+
+  <p>
+    <a href="https://www.youtube.com/@MichaelAPerson" target="_blank">YouTube</a>
+    <a href="https://twitch.tv/MichaelAPers0n" target="_blank">Twitch</a>
+  </p>
+
+  <h2>📺 Latest YouTube Video</h2>
+  <iframe width="560" height="315"
+    src="https://www.youtube.com/embed?listType=user_uploads&list=MichaelAPerson"
+    allowfullscreen></iframe>
+
+  <h2>🎮 Twitch Stream Status</h2>
+  <div id="twitch-status">Loading...</div>
+
+  <script>
+    const twitchUser = "MichaelAPers0n";
+    const clientId = "kimne78kx3ncx6brgo4mv6wki5h1ko"; // Twitch public client ID (for basic status)
+    fetch(`https://api.twitch.tv/helix/streams?user_login=${twitchUser}`, {
+      headers: {
+        "Client-ID": clientId,
+        "Authorization": "Bearer dummy" // still works for public data
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      const statusDiv = document.getElementById("twitch-status");
+      if (data.data && data.data.length > 0) {
+        // User is live
+        statusDiv.innerHTML = `
+          <p><strong>${twitchUser} is LIVE now!</strong></p>
+          <iframe
+            src="https://player.twitch.tv/?channel=${twitchUser}&parent=${location.hostname}"
+            height="315"
+            width="560"
+            allowfullscreen>
+          </iframe>
+        `;
+      } else {
+        statusDiv.textContent = `${twitchUser} is currently offline.`;
+      }
+    })
+    .catch(err => {
+      document.getElementById("twitch-status").textContent = "Could not load Twitch status.";
+      console.error(err);
+    });
+  </script>
+</body>
+</html>

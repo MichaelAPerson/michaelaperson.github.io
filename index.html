@@ -6,63 +6,92 @@
   <title>Michael's Stream & Videos</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #111;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
       color: #fff;
       text-align: center;
       padding: 2rem;
     }
+
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+
     a {
-      color: #1da1f2;
+      color: #00acee;
       text-decoration: none;
       font-size: 1.2rem;
       margin: 0 1rem;
     }
+
+    .card {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 1rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      margin: 2rem auto;
+      max-width: 600px;
+    }
+
     iframe {
+      width: 100%;
+      height: 315px;
       border: none;
+      border-radius: 0.5rem;
       margin-top: 1rem;
     }
+
     #twitch-status {
       margin-top: 1rem;
+    }
+
+    footer {
+      margin-top: 3rem;
+      color: #aaa;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
   <h1>Welcome to My Page!</h1>
-
   <p>
     <a href="https://www.youtube.com/@MichaelAPerson" target="_blank">YouTube</a>
     <a href="https://twitch.tv/MichaelAPers0n" target="_blank">Twitch</a>
   </p>
 
-  <h2>📺 Latest YouTube Video</h2>
-  <iframe width="560" height="315"
-    src="https://www.youtube.com/embed?listType=user_uploads&list=MichaelAPerson"
-    allowfullscreen></iframe>
+  <div class="card">
+    <h2>📺 Latest YouTube Video</h2>
+    <iframe
+      src="https://www.youtube.com/embed?listType=playlist&list=UUptH_d2ZuGZjti3yNpdRA2A"
+      allowfullscreen>
+    </iframe>
+  </div>
 
-  <h2>🎮 Twitch Stream Status</h2>
-  <div id="twitch-status">Loading...</div>
+  <div class="card">
+    <h2>🎮 Twitch Stream Status</h2>
+    <div id="twitch-status">Loading...</div>
+  </div>
+
+  <footer>© 2025 Michael A Person</footer>
 
   <script>
     const twitchUser = "MichaelAPers0n";
-    const clientId = "kimne78kx3ncx6brgo4mv6wki5h1ko"; // Twitch public client ID (for basic status)
+    const clientId = "kimne78kx3ncx6brgo4mv6wki5h1ko"; // Twitch public client ID
     fetch(`https://api.twitch.tv/helix/streams?user_login=${twitchUser}`, {
       headers: {
         "Client-ID": clientId,
-        "Authorization": "Bearer dummy" // still works for public data
+        "Authorization": "Bearer dummy" // Twitch allows this for public info
       }
     })
     .then(res => res.json())
     .then(data => {
       const statusDiv = document.getElementById("twitch-status");
       if (data.data && data.data.length > 0) {
-        // User is live
         statusDiv.innerHTML = `
           <p><strong>${twitchUser} is LIVE now!</strong></p>
           <iframe
             src="https://player.twitch.tv/?channel=${twitchUser}&parent=${location.hostname}"
-            height="315"
-            width="560"
             allowfullscreen>
           </iframe>
         `;

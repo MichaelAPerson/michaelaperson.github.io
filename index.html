@@ -1,194 +1,39 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MichaelAPerson</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background-color: #162169;
-      color: #fff;
-      text-align: center;
-      padding: 2rem;
-    }
-    h1 {
-      margin-bottom: 0.5rem;
-    }
-    a {
-      color: #00acee;
-      text-decoration: none;
-      font-size: 1.2rem;
-      margin: 0 1rem;
-    }
-    #connectBtn {
-      cursor: pointer;
-    }
-    .card {
-      background: rgba(0, 0, 0, 0.4);
-      padding: 1rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-      margin: 2rem auto;
-      max-width: 600px;
-    }
-    iframe {
-      width: 100%;
-      height: 315px;
-      border: none;
-      border-radius: 0.5rem;
-      margin-top: 1rem;
-    }
-    #twitch-status {
-      margin-top: 1rem;
-    }
-    footer {
-      margin-top: 3rem;
-      color: #aaa;
-      font-size: 0.9rem;
-    }
-    .hidden-msg {
-      display: none;
-      margin-top: 1rem;
-      color: #0f0;
-    }
-    .offline-img {
-      width: 100%;
-      max-width: 560px;
-      border-radius: 10px;
-      margin-top: 1rem;
-    }
-
-    /* Modal styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 10;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content {
-      background-color: #1e2f97;
-      color: #fff;
-      padding: 2rem;
-      border-radius: 15px;
-      max-width: 500px;
-      width: 90%;
-      position: relative;
-      text-align: left;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Fischer - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "qfmakkuk62");
+</script>
 </head>
 <body>
-  <h1>Welcome</h1>
-  <p>
-    <a href="https://youtube.com/@MichaelAPerson" target="_blank">YouTube</a>
-    <a href="https://twitch.tv/MichaelAPers0n" target="_blank">Twitch</a>
-    <a href="https://github.com/MichaelAperson" target="_blank">GitHub</a>
-    <a id="connectBtn">Connect</a>
-  </p>
+    <header>
+        <h1>Michael Fischer</h1>
+    </header>
 
-  <div class="card">
-    <h2>📊 YouTube Live Subscriber Count</h2>
-    <iframe 
-      src="https://socialcounts.org/youtube-live-subscriber-count/UCEeu7Z7hzRDURdLpW-ZK9Ag/embed?fullscreen=true" 
-      allowfullscreen>
-    </iframe>
-  </div>
+    <section id="about">
+        <h2>About Me</h2>
+        <p>my name is michael.</p>
+    </section>
 
-  <div class="card">
-    <h2>🎮 Twitch Stream Status</h2>
-    <div id="twitch-status">Loading...</div>
-  </div>
+    <section id="about">
+        <h2>Projects</h2>
+        <p class="link-button" onclick="window.open('https://ip.michaelfischer.ct.ws', '_blank')">
+  IP and Domain Look Up
+</p>
+    </section>
 
-  <div class="card hidden-msg" id="secretMsg">
-    🕵️‍♂️ Secret Unlocked! You're an elite visitor.
-  </div>
-
-  <div id="popup" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" id="closePopup">&times;</span>
-      <h2>💼 Sponsors</h2>
-      <p>Interested in sponsoring? Contact me via <a href="mailto:sponsor@michaelaperson.ct.ws">sponsor@michaelaperson.ct.ws</a></p>
-      
-      <hr style="margin: 2rem 0; border-color: #555;">
-      
-      <h2>🙌 Fans</h2>
-      <p>Wanna reach out for anything? Contact me via <a href="mailto:fans@michaelaperson.ct.ws">fans@michaelaperson.ct.ws.</a></p>
-    </div>
-  </div>
-
-  <footer>MichaelAPerson - No Rights reserved</footer>
-
-  <script>
-    // Twitch status fetch
-    const twitchUser = "MichaelAPers0n";
-    const clientId = "kimne78kx3ncx6brgo4mv6wki5h1ko";
-    fetch(`https://api.twitch.tv/helix/streams?user_login=${twitchUser}`, {
-      headers: {
-        "Client-ID": clientId,
-        "Authorization": "Bearer dummy"
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      const statusDiv = document.getElementById("twitch-status");
-      if (data.data && data.data.length > 0) {
-        statusDiv.innerHTML = `
-          <p><strong>${twitchUser} is LIVE now!</strong></p>
-          <iframe
-            src="https://player.twitch.tv/?channel=${twitchUser}&parent=${location.hostname}"
-            allowfullscreen>
-          </iframe>
-        `;
-      } else {
-        statusDiv.innerHTML = `
-          <p>${twitchUser} is currently offline.</p>
-          <img src="offline.png" alt="Offline" class="offline-img">
-        `;
-      }
-    })
-    .catch(err => {
-      document.getElementById("twitch-status").textContent = "Could not load Twitch status.";
-      console.error(err);
-    });
-
-    // Konami Code
-    const konami = [38,38,40,40,37,39,37,39,66,65];
-    let input = [];
-    document.addEventListener('keydown', e => {
-      input.push(e.keyCode);
-      if (input.toString().indexOf(konami.toString()) >= 0) {
-        document.getElementById('secretMsg').style.display = 'block';
-        input = [];
-      }
-      if (input.length > 10) input.shift();
-    });
-
-    // Connect popup logic
-    const connectBtn = document.getElementById("connectBtn");
-    const popup = document.getElementById("popup");
-    const closePopup = document.getElementById("closePopup");
-
-    connectBtn.onclick = () => popup.style.display = "flex";
-    closePopup.onclick = () => popup.style.display = "none";
-    window.onclick = e => {
-      if (e.target === popup) popup.style.display = "none";
-    };
-  </script>
+    <footer>
+        <p>&copy; 2025 Michael Fischer. No rights reserved.</p>
+    </footer>
 </body>
 </html>
